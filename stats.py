@@ -5,9 +5,21 @@ def count_words(text: str) -> int:
 def count_chars(text: str) -> dict[str, int]:
     char_counts = {}
     for char in text:
-        char_lower = char.lower()
+        c = char.lower()
         if char_lower in char_counts:
-            char_counts[char_lower] += 1
+            char_counts[c] += 1
         else:
-            char_counts[char_lower] = 1
+            char_counts[c] = 1
     return char_counts
+
+
+def sort_char_counts_on(item):
+    return item["num"]
+
+
+def get_sorted_char_counts(raw_char_counts: dict[str, int]) -> list[dict[str, int | str]]:
+    return sorted(
+            [{"char": c, "num": n} for c, n in raw_char_counts.items()],
+            key=sort_char_counts_on,
+            reverse=True
+        )
