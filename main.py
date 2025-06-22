@@ -1,7 +1,10 @@
+import sys
+
 from stats import count_words, count_chars, get_sorted_char_counts
 
 
 def get_book_text(book_file: str) -> str:
+    """Return the contents of a book as a string."""
     with open(book_file) as f:
         return f.read()
 
@@ -11,6 +14,7 @@ def print_report(
         num_words: int,
         sorted_char_counts: list[dict[str, int | str]]
         ) -> None:
+    """Print the Bookbot report."""
     print("============ BOOKBOT ============")
     print(f"Analyzing book found at {path_to_book}...")
     print("----------- Word Count ----------")
@@ -26,7 +30,11 @@ def print_report(
 
 
 def main() -> None:
-    path_to_book = "books/frankenstein.txt"
+    """Main Bookbot logic."""
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    path_to_book = sys.argv[1]
     book_text = get_book_text(book_file=path_to_book)
     num_words = count_words(text=book_text)
     char_counts = count_chars(text=book_text)
